@@ -1,0 +1,113 @@
+Great questions! Let me walk you through the process in detail.
+
+---
+
+## ✅ 1. **Where to Add Voice Recordings**
+
+Once you've unzipped the project folder:
+
+```
+emotion_voice_ai_project/
+│
+├── main.py
+├── model.py
+├── preprocess.py
+├── requirements.txt
+└── data/                  <--- YOU create this folder and add your .wav files here
+```
+
+**Create a `data/` folder** inside the project directory (if it’s not already there), and place all your `.wav` files in that folder.
+
+> ✅ Ensure filenames follow the **CREMA-D style**: e.g., `1012_TIE_SAD_XX.wav`, where `SAD` is the emotion code.
+
+Supported emotion codes (from `preprocess.py`):
+
+* `ANG` → angry
+* `DIS` → disgust
+* `FEA` → fear
+* `HAP` → happy
+* `NEU` → neutral
+* `SAD` → sad
+
+---
+
+## 🧹 2. **Preprocessing Steps (Behind the Scenes)**
+
+When you run `main.py`, this happens in `preprocess.py`:
+
+### a. **File Scanning**
+
+It scans every `.wav` file in the `data/` folder.
+
+### b. **Emotion Label Extraction**
+
+It extracts the emotion code from the filename:
+
+```python
+parts = file_name.split("_")
+emotion = emotion_map.get(parts[2])
+```
+
+So the filename must contain the correct emotion keyword (e.g., `HAP`, `SAD`, etc.)
+
+### c. **Audio Feature Extraction**
+
+Each file is processed using `librosa.load()` and converted into MFCCs:
+
+```python
+mfccs = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=40)
+```
+
+Then we take the **mean** across time to get a fixed-length feature vector.
+
+### d. **Label Encoding**
+
+Text labels (e.g., "happy", "sad") are converted into integers using `LabelEncoder`.
+
+---
+
+## 🎤 3. **How to Add Your Own Voice Recordings**
+
+You can record your own `.wav` files using a tool like:
+
+* **Audacity** (Desktop, free)
+* **Online Voice Recorder** ([https://online-voice-recorder.com/](https://online-voice-recorder.com/))
+* **Python (Optional)**:
+
+```python
+import sounddevice as sd
+from scipy.io.wavfile import write
+
+fs = 22050  # Sample rate
+seconds = 5  # Duration
+
+print("Recording...")
+audio = sd.rec(int(seconds * fs), samplerate=fs, channels=1)
+sd.wait()
+write('data/1001_SPK_HAP_01.wav', fs, audio)
+print("Saved.")
+```
+
+**IMPORTANT:** Rename your files using the format:
+`[ID]_SPK_[EMOTION_CODE]_[X].wav`
+Example: `1234_SPK_HAP_01.wav` (means speaker 1234, happy emotion)
+
+---
+
+## 🚀 To Run the Project
+
+Once your audio files are in `data/`, just run:
+
+```bash
+python main.py
+```
+
+And you’ll get:
+
+* Model training and evaluation
+* A test prediction on one of the samples
+* Console output with classification report and confusion matrix
+
+---
+
+Would you like help building an audio recorder into the project for direct input?
