@@ -1,8 +1,8 @@
 import os
 import sys
 import numpy as np
-from preprocess import extract_features
-from model import load_model, predict_emotion
+from preprocessing.preprocess_ravdess import extract_features
+from model.model_randomforest import load_model, predict_emotion
 from sklearn.preprocessing import LabelEncoder
 
 # Define a fixed label encoder for decoding (same as training classes)

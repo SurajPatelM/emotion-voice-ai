@@ -1,5 +1,5 @@
-from model import train_model, evaluate_model, predict_emotion
-from preprocess import load_and_extract_features
+from model.model_randomforest import train_model, evaluate_model, predict_emotion
+from preprocessing.preprocess_ravdess import load_and_extract_features
 import os
 
 if __name__ == "__main__":

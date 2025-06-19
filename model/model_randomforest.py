@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 
-MODEL_PATH = "trained_model.pkl"
+MODEL_PATH = "trained_models/random_forest.pkl"
 
 def train_model(X, y):
     X_train, X_test, y_train, y_test = train_test_split(
