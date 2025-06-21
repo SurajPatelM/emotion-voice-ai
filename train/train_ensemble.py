@@ -12,8 +12,8 @@ import seaborn as sns
 
 # Add paths for imports
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from preprocessing.preprocess_cremad import load_and_extract_features as load_cremad
-from preprocessing.preprocess_ravdess import load_and_extract_features as load_ravdess
+from preprocessing.preprocess_cremad_rf import load_and_extract_features as load_cremad
+from preprocessing.preprocess_ravdess_rf import load_and_extract_features as load_ravdess
 
 
 def plot_confusion(y_true, y_pred, labels, title="Confusion Matrix"):
