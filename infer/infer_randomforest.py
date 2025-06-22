@@ -9,7 +9,7 @@ from preprocessing.preprocess_ravdess_rf import extract_features
 # Paths
 MODEL_PATH = "models/random_forest_model.pkl"
 ENCODER_PATH = "encoders/label_encoder.pkl"
-SCALER_PATH = "encoders/scaler.pkl"
+SCALER_PATH = "encoders/scaler_rf.pkl"
 
 def load_model():
     if not os.path.exists(MODEL_PATH):

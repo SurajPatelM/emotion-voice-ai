@@ -175,7 +175,7 @@ if __name__ == "__main__":
     os.makedirs("encoders", exist_ok=True)
     joblib.dump(model, "models/random_forest_model.pkl")
     joblib.dump(label_encoder, "encoders/label_encoder.pkl")
-    joblib.dump(scaler, "encoders/scaler.pkl")
+    joblib.dump(scaler, "encoders/scaler_rf.pkl")
 
     print("Predicting a sample...")
     sample = X_test[0].reshape(1, -1)
