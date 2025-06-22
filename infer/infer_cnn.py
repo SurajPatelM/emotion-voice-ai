@@ -1,9 +1,11 @@
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
+import matplotlib.ticker as ticker
 import numpy as np
 import librosa
+import librosa.display
+import matplotlib.pyplot as plt
 import tensorflow as tf
 
 # Paths
@@ -33,6 +35,17 @@ def extract_melspectrogram(audio, sr=SAMPLE_RATE, duration=DURATION, n_mels=N_ME
 
     return mel_db
 
+def plot_spectrogram(mel_db, title, save_path):
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+    plt.figure(figsize=(10, 4))
+    librosa.display.specshow(mel_db, sr=SAMPLE_RATE, x_axis='time', y_axis='log', cmap='coolwarm')
+    plt.colorbar(format=ticker.FormatStrFormatter('+%.0f dB'))
+    plt.title(f'Mel-spectrogram: {title}')
+    plt.tight_layout()
+    plt.savefig(save_path)
+    plt.close()
+    print(f"Spectrogram saved to: {save_path}")
+
 def load_model():
     if not os.path.exists(MODEL_PATH):
         raise FileNotFoundError("Trained CNN model not found.")
@@ -56,6 +69,10 @@ def infer_on_file(wav_path):
     except Exception as e:
         print(f"Feature extraction failed: {e}")
         return
+
+    # Visualize
+    fname = os.path.basename(wav_path).replace(".wav", "")
+    plot_spectrogram(mel, title=os.path.basename(wav_path), save_path=f"results/spectrogram_{fname}.png")
 
     print("Loading model and encoder...")
     model = load_model()
