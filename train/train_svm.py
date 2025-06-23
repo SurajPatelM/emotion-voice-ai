@@ -143,6 +143,21 @@ def main():
     plt.tight_layout()
     plt.savefig("results/svm_confusion_matrix.png")
     plt.show()
+    
+    train_acc = model.score(X_train, y_train)
+    test_acc = model.score(X_test, y_test)
+
+    plt.figure(figsize=(6, 4))
+    plt.bar(['Train Accuracy', 'Test Accuracy'], [train_acc, test_acc], color=['skyblue', 'orange'])
+    plt.ylim(0, 1)
+    plt.ylabel("Accuracy")
+    plt.title("SVM Accuracy Comparison")
+    plt.tight_layout()
+    plt.savefig("results/svm_accuracy_comparison.png")
+    plt.show()
+
+    print("Model, scaler, and label encoder saved.")
+
 
     print("Model, scaler, and label encoder saved.")
 
