@@ -3,7 +3,7 @@ from preprocessing.preprocess_ravdess import load_and_extract_features
 import os
 
 if __name__ == "__main__":
-    data_dir = "data/RAVDESS"  # Replace with your actual dataset path
+    data_dir = "data/RAVDESS"
 
     # Load features and labels
     print("Loading and extracting features...")
