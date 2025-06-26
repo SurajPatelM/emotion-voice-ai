@@ -3,7 +3,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import numpy as np
 import joblib
-from preprocessing.preprocess_ravdess import extract_features  # ✅ Ensure correct import
+from preprocessing.preprocess_ravdess import extract_features  
 
 # Constants for model and encoder paths
 MODEL_PATH = "models/ensemble_model.pkl"

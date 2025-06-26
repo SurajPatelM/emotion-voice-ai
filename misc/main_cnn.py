@@ -37,7 +37,6 @@ class RAVDESSSpectrogramCNN:
         }
         
     def extract_features(self, file_path, augment=False):
-        """Extract mel-spectrogram features from audio file with optional augmentation"""
         try:
             # Load audio file
             audio, sr = librosa.load(file_path, sr=self.sample_rate, duration=self.duration)
@@ -91,7 +90,6 @@ class RAVDESSSpectrogramCNN:
             return None
     
     def load_data(self, augment_data=True):
-        """Load and preprocess RAVDESS dataset with data augmentation"""
         features = []
         labels = []
         
@@ -149,7 +147,6 @@ class RAVDESSSpectrogramCNN:
         return X, y_categorical, y
     
     def build_model(self, input_shape, num_classes):
-        """Build improved CNN model for spectrogram classification"""
         model = Sequential([
             # First convolutional block
             Conv2D(32, (3, 3), activation='relu', input_shape=input_shape, 
@@ -196,7 +193,6 @@ class RAVDESSSpectrogramCNN:
         return model
     
     def train_model(self, X, y, validation_split=0.2, epochs=100, batch_size=16):
-        """Train the CNN model with improved callbacks"""
         print("Building model...")
         input_shape = X.shape[1:]  # (height, width, channels)
         num_classes = y.shape[1]
@@ -248,7 +244,6 @@ class RAVDESSSpectrogramCNN:
         return history
     
     def calculate_class_weights(self, y):
-        """Calculate class weights for balanced training"""
         y_integers = np.argmax(y, axis=1)
         class_weights = {}
         unique_classes = np.unique(y_integers)
@@ -259,7 +254,6 @@ class RAVDESSSpectrogramCNN:
         return class_weights
     
     def plot_training_history(self, history):
-        """Plot training history"""
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
         
         # Plot accuracy
@@ -282,7 +276,6 @@ class RAVDESSSpectrogramCNN:
         plt.show()
     
     def evaluate_model(self, X_test, y_test, y_test_labels):
-        """Evaluate model performance"""
         if self.model is None:
             print("Model not trained yet!")
             return
@@ -371,7 +364,6 @@ class RAVDESSSpectrogramCNN:
             plt.show()
     
     def save_model(self, filepath='ravdess_emotion_model.h5'):
-        """Save the trained model"""
         if self.model is not None:
             self.model.save(filepath, save_format='h5')
             # Also save label encoder
@@ -379,7 +371,6 @@ class RAVDESSSpectrogramCNN:
             print(f"Model saved to {filepath}")
     
     def load_model(self, filepath='ravdess_emotion_model.h5'):
-        """Load a pre-trained model"""
         self.model = load_model(filepath)
         # Load label encoder classes
         label_file = filepath.replace('.h5', '_labels.npy')

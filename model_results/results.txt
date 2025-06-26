@@ -1,0 +1,41 @@
+[media pointer="file-service://file-SZj9pDW5w9ukaqQTCoGEvC"]
+Random Forest 
+Classification Report:
+
+              precision    recall  f1-score   support
+
+       angry       0.61      0.70      0.65       256
+       happy       0.72      0.84      0.77       293
+     neutral       0.74      0.58      0.65       273
+         sad       0.56      0.51      0.53       292
+
+    accuracy                           0.66      1114
+   macro avg       0.66      0.66      0.65      1114
+weighted avg       0.66      0.66      0.65      1114
+
+Accuracy: 65.62%
+Feature importance plot saved to results/randomforest_feature_importance.png
+
+
+SVM
+(FAI) surajpatelm@Surajs-MacBook-Air emotion-voice-ai-backup % python train/train_svm.py         
+Extracting RAVDESS features...
+Extracting CREMA-D features...
+Label distribution: {'angry': 1278, 'sad': 1462, 'happy': 1463, 'neutral': 1366}
+Training SVM model...
+Evaluating model...
+
+Classification Report:
+              precision    recall  f1-score   support
+
+       angry       0.55      0.67      0.60       192
+       happy       0.72      0.75      0.73       220
+     neutral       0.60      0.59      0.59       205
+         sad       0.54      0.42      0.47       219
+
+    accuracy                           0.61       836
+   macro avg       0.60      0.61      0.60       836
+weighted avg       0.60      0.61      0.60       836
+
+2025-06-26 00:17:22.997 python[26495:2047178] +[IMKClient subclass]: chose IMKClient_Legacy
+2025-06-26 00:17:22.997 python[26495:2047178] +[IMKInputSession subclass]: chose IMKInputSession_Legacy

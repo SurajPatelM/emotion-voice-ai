@@ -17,16 +17,7 @@ warnings.filterwarnings('ignore')
 
 class SVMEmotionRecognition:
     def __init__(self, model_path='trained_models/svm_model.pkl', scaler_path='encoders/scaler.pkl', label_encoder_path='encoders/label_encoder.pkl', sample_rate=22050, duration=4):
-        """
-        Initialize the inference class
-        
-        Args:
-            model_path (str): Path to the trained model file
-            scaler_path (str): Path to the scaler file for feature scaling
-            label_encoder_path (str): Path to the label encoder
-            sample_rate (int): Sample rate for audio processing
-            duration (int): Duration in seconds for audio clips
-        """
+       
         self.model_path = model_path
         self.scaler_path = scaler_path
         self.label_encoder_path = label_encoder_path
@@ -56,15 +47,7 @@ class SVMEmotionRecognition:
             return None
 
     def predict_single_file(self, file_path):
-        """
-        Predict emotion for a single audio file
-        
-        Args:
-            file_path (str): Path to audio file
-            
-        Returns:
-            tuple: (predicted_emotion, confidence) or (None, None) if error
-        """
+
         features = self.extract_features(file_path)
         if features is None:
             return None, None
@@ -78,16 +61,7 @@ class SVMEmotionRecognition:
         return predicted_emotion
     
     def batch_predict(self, audio_files, output_file=None):
-        """
-        Predict emotions for multiple audio files
-        
-        Args:
-            audio_files (list): List of audio file paths
-            output_file (str): Optional CSV file to save results
-            
-        Returns:
-            list: List of prediction results
-        """
+
         results = []
 
         print(f"\nProcessing {len(audio_files)} audio files...")
@@ -115,7 +89,6 @@ class SVMEmotionRecognition:
         return results
 
 def main():
-    """Main function for command-line interface"""
     parser = argparse.ArgumentParser(description='SVM Emotion Recognition Inference')
     parser.add_argument('audio_path', help='Path to audio file or directory')
     parser.add_argument('--model', '-m', default='trained_models/svm_model.pkl', 

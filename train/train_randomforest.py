@@ -2,14 +2,12 @@ import sys
 import os
 import numpy as np
 import joblib
-import optuna
 from collections import Counter
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, accuracy_score, confusion_matrix, log_loss
 from sklearn.decomposition import PCA
-from xgboost import XGBClassifier
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -151,8 +149,6 @@ if __name__ == "__main__":
     print("\nClassification Report:\n")
     print(classification_report(y_test, y_pred, target_names=label_encoder.classes_))
     print(f"Accuracy: {accuracy_score(y_test, y_pred) * 100:.2f}%")
-
-    from xgboost import plot_importance
 
     # Plot feature importances for Random Forest
     importances = model.feature_importances_

@@ -25,18 +25,18 @@ def plot_confusion(y_true, y_pred, labels, title="Confusion Matrix"):
     plt.title(title)
     plt.tight_layout()
     plt.savefig("results/confusion_matrix.png")
-    print("📊 Confusion matrix saved to results/confusion_matrix.png")
+    print("Confusion matrix saved to results/confusion_matrix.png")
 
 
 if __name__ == "__main__":
     crema_dir = "data/CREMA-D"
     ravdess_dir = "data/RAVDESS"
 
-    print("📥 Loading features...")
+    print("Loading features...")
     X_crema, y_crema, _ = load_cremad(crema_dir)
     X_ravdess, y_ravdess, _ = load_ravdess(ravdess_dir)
 
-    print("🔗 Merging datasets...")
+    print("Merging datasets...")
     X = np.concatenate((X_crema, X_ravdess), axis=0)
     y = np.concatenate((y_crema, y_ravdess), axis=0)
 
@@ -62,14 +62,14 @@ if __name__ == "__main__":
         n_jobs=-1
     )
 
-    print("🧠 Training ensemble model (VotingClassifier)...")
+    print("Training ensemble model (VotingClassifier)...")
     ensemble.fit(X_train, y_train)
 
     y_pred = ensemble.predict(X_test)
 
-    print("\n📋 Classification Report:")
+    print("Classification Report:")
     print(classification_report(y_test, y_pred, target_names=label_encoder.classes_))
-    print(f"🎯 Accuracy: {accuracy_score(y_test, y_pred) * 100:.2f}%")
+    print(f"Accuracy: {accuracy_score(y_test, y_pred) * 100:.2f}%")
 
     # Confusion matrix
     os.makedirs("results", exist_ok=True)
@@ -80,4 +80,4 @@ if __name__ == "__main__":
     joblib.dump(ensemble, "models/ensemble_model.pkl")
     joblib.dump(label_encoder, "encoders/label_encoder.pkl")
 
-    print("✅ Ensemble model and encoder saved.")
+    print("Ensemble model and encoder saved.")

@@ -10,14 +10,13 @@ import matplotlib.ticker as ticker
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-# ==== CONSTANTS ====
+
 SAMPLE_RATE = 22050
 DURATION = 4
 N_MFCC = 40
 N_MELS = 64
 FIXED_FRAMES = 173
 
-# ==== PATHS ====
 SVM_MODEL = "models/svm_model.pkl"
 SVM_SCALER = "encoders/svm_scaler.pkl"
 SVM_ENCODER = "encoders/svm_label_encoder.pkl"
@@ -30,7 +29,6 @@ RF_ENCODER = "encoders/label_encoder.pkl"
 CNN_MODEL = "models/cnn_spectrogram_combined_final.h5"
 CNN_ENCODER = "encoders/cnn_spectrogram_classes.npy"
 
-# ==== FEATURE EXTRACTORS ====
 
 def extract_mfcc_stats(audio, sr=SAMPLE_RATE):
     target_len = sr * DURATION
@@ -83,7 +81,6 @@ def extract_melspectrogram(audio, sr=SAMPLE_RATE):
 
     return mel_db
 
-# ==== INFERENCE FUNCTIONS ====
 
 def infer_svm(audio):
     model = joblib.load(SVM_MODEL)
@@ -137,7 +134,6 @@ def infer_cnn(audio, wav_path):
     idx = np.argmax(proba)
     return "CNN", classes[idx], proba[idx]
 
-# ==== MAIN ====
 
 def run_all_models(wav_path):
     if not os.path.exists(wav_path):

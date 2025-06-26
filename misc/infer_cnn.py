@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""
-RAVDESS Emotion Recognition Inference Script
-Loads a trained model and performs inference on audio files
-"""
+
 
 import os
 import sys
@@ -17,15 +14,6 @@ warnings.filterwarnings('ignore')
 
 class RAVDESSInference:
     def __init__(self, model_path='trained_models/cnn_model.h5', sample_rate=22050, duration=4, n_mels=64):
-        """
-        Initialize the inference class
-        
-        Args:
-            model_path (str): Path to the trained model file
-            sample_rate (int): Sample rate for audio processing
-            duration (int): Duration in seconds for audio clips
-            n_mels (int): Number of mel frequency bands
-        """
         self.model_path = model_path
         self.sample_rate = sample_rate
         self.duration = duration
@@ -37,7 +25,6 @@ class RAVDESSInference:
         self.load_model()
     
     def load_model(self):
-        """Load the trained model and label encoder"""
         if not os.path.exists(self.model_path):
             raise FileNotFoundError(f"Model file not found: {self.model_path}")
         
@@ -60,15 +47,7 @@ class RAVDESSInference:
         print("Model loaded successfully!")
     
     def extract_features(self, file_path):
-        """
-        Extract mel-spectrogram features from audio file
-        
-        Args:
-            file_path (str): Path to audio file
-            
-        Returns:
-            numpy.array: Mel-spectrogram features or None if error
-        """
+
         try:
             print(f"Processing audio file: {file_path}")
             
@@ -110,16 +89,7 @@ class RAVDESSInference:
             return None
     
     def predict_single_file(self, file_path, show_probabilities=True):
-        """
-        Predict emotion for a single audio file
-        
-        Args:
-            file_path (str): Path to audio file
-            show_probabilities (bool): Whether to show all emotion probabilities
-            
-        Returns:
-            tuple: (predicted_emotion, confidence) or (None, None) if error
-        """
+
         if self.model is None:
             print("Error: Model not loaded!")
             return None, None
@@ -167,14 +137,7 @@ class RAVDESSInference:
         return emotion, confidence
     
     def visualize_spectrogram(self, file_path, save_plot=False, output_dir='./'):
-        """
-        Visualize spectrogram of an audio file
-        
-        Args:
-            file_path (str): Path to audio file
-            save_plot (bool): Whether to save the plot
-            output_dir (str): Directory to save the plot
-        """
+
         spec = self.extract_features(file_path)
         if spec is not None:
             plt.figure(figsize=(14, 8))
@@ -209,16 +172,7 @@ class RAVDESSInference:
             print("Could not generate spectrogram")
     
     def batch_predict(self, audio_files, output_file=None):
-        """
-        Predict emotions for multiple audio files
-        
-        Args:
-            audio_files (list): List of audio file paths
-            output_file (str): Optional CSV file to save results
-            
-        Returns:
-            list: List of prediction results
-        """
+ 
         results = []
         
         print(f"\nProcessing {len(audio_files)} audio files...")
@@ -252,7 +206,6 @@ class RAVDESSInference:
         return results
 
 def main():
-    """Main function for command-line interface"""
     parser = argparse.ArgumentParser(description='RAVDESS Emotion Recognition Inference')
     parser.add_argument('audio_path', help='Path to audio file or directory')
     parser.add_argument('--model', '-m', default='trained_models/cnn_model.h5', 

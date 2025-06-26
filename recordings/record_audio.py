@@ -12,5 +12,5 @@ def record_voice(filename="recorded_sample.wav", duration=4, fs=16000):
 if __name__ == "__main__":
     output_dir = "recordings"
     os.makedirs(output_dir, exist_ok=True)
-    output_path = os.path.join(output_dir, "sample1_neutral.wav")
+    output_path = os.path.join(output_dir, "gargi_happy.wav")
     record_voice(output_path)
