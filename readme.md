@@ -38,7 +38,7 @@ Predict emotions from new `.wav` audio files using:
 
 python infer/infer_randomforest.py path/to/audio.wav   # Predict with Random Forest
 
-python infer/infer_svm.py path/to/audio.wav            # Predict with SVM 
+python infer/infer_svm_updated.py path/to/audio.wav            # Predict with SVM 
 
 python infer/infer_cnn.py path/to/audio.wav            # Predict with CNN
 
